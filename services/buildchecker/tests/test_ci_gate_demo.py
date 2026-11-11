@@ -1,6 +1,6 @@
-"""Intentional wrong oracle for the E7 rejection exercise; not an algorithm defect."""
+"""Corrected E7 teaching oracle; the preceding commit deliberately expected failure."""
 from buildchecker.cli import main
 
 
 def test_version_exit_code_gate_demo():
-    assert main(["version"]) == 1
+    assert main(["version"]) == 0
