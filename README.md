@@ -1,4 +1,35 @@
-# DevOps
+# A03 — BuildChecker / EChecker
+
+A03 的 A 组独立课程仓库，负责 BuildChecker 全量依赖检测与 EChecker 增量依赖检测。
+
+- **A 组仓库**：https://github.com/Ezio927/DevOps_BuildChecker
+- **B 组仓库**：https://github.com/241880199/DevOps_Draft
+- **原 A/B 合并仓库**：https://github.com/241880199/DevOps
+- **迁移起点**：原合并仓库 main 的 `0038a5c197e99d5993c882dc2f6520677a73e6c8`。
+
+本仓库保留原提交历史、作者、契约及已合入的组员贡献。历史运行报告中的原仓库 URL 和
+源码 SHA 保持原样，以保留证据来源；新实验使用本仓库 URL、本人的实际源码 SHA 和工作目录。
+
+## 协作与实验状态
+
+仓库由 Ezio927（241880444）维护，Arynah 与 RippleOrApple 按 Write 权限协作，邀请状态以 GitHub 为准。
+每人在自己的分支完整运行本组实验、增加有独立预期的测试或实现改动，并提交报告和 AI 使用记录；
+通过 CI 后经 PR 合入 main，不用组员的运行记录替代本人的交付。
+
+现有 E8—E10 代码和 241880465 的个人贡献来自上述迁移起点；它们不代表其他成员已经完成实验。
+241880444 的 E5—E7、E8—E10、E11—E12 仍待本人实际运行与贡献。E11—E12 尚未导入。
+
+- E8—E10 入口：`run_lab.py`、`labs/e8e10/`。
+- CI：`.github/workflows/e8e10.yml`，检查名 `e8e10-quality-gate`。
+- 现有 CI 运行课程共享的 A/B 参考回归；保留 B 参考场景用于验证，不改变 A 组交付边界。
+- 本人报告放在 `docs/students/<学号>/`；`work/`、本地配置和提交老师的压缩包单独归档。
+- main 使用 PR 和必需检查；E7 门禁及 E11—E12 检查随相应实验完成后补齐。
+
+迁移与协作约定见 [仓库说明](docs/repository-split.md)。下方保留原合并仓库文档和相对链接。
+
+---
+
+## 原合并仓库说明
 
 构建环境生成与依赖问题的接口契约、参考实现与设计记录。
 
