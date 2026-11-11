@@ -41,5 +41,6 @@ class ProfileTests(unittest.TestCase):
 
 # 将个人测试纳入课程指定的 test_profile.py 发现入口。
 from test_student_241880465 import Student241880465Tests
+from test_student_241880444 import Student241880444Tests
 
 if __name__=='__main__':unittest.main()
