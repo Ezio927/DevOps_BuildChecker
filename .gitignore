@@ -25,3 +25,5 @@ Thumbs.db
 *.key
 work/
 .pytest_cache/
+# Local integration datasets; preserve and submit separately from source.
+data/

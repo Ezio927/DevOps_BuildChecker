@@ -1,0 +1,36 @@
+name: E11 A integration
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  integration:
+    name: e11-a-integration
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Prepare identity and A-only toolchain
+        run: |
+          git config --local user.name 241880444
+          git config --local user.email 241880444@smail.nju.edu.cn
+          mkdir -p work/e11-a-ci
+          git rev-parse HEAD > work/e11-a-ci/commit.txt
+          python3 run_e11e12.py build --a-only > work/e11-a-ci/build.log 2>&1
+          docker image inspect course-e11a:241880444 > work/e11-a-ci/image.json
+      - name: Validate A contracts and real A integration
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 run_e11e12.py test --a-only 2>&1 | tee work/e11-a-ci/unit-tests.log
+          image_id=$(docker image inspect course-e11a:241880444 --format '{{.Id}}')
+          docker run --rm --network none --cpus 2 --memory 1g --pids-limit 256 --cap-add SYS_PTRACE --security-opt no-new-privileges:true --user "$(id -u):$(id -g)" -e HOME=/tmp -e PYTHONPATH=/course/labs/e11e12:/course/labs/e8e10:/app -v "$PWD:/course" -w /course course-e11a:241880444 python3 labs/e11e12/student_241880444_a.py --out work/e11-a-ci/experiment --image-id "$image_id" 2>&1 | tee work/e11-a-ci/integration.log
+          python3 scripts/secret_scan.py . --history --image course-e11a:241880444 | tee work/e11-a-ci/scan.log
+      - uses: actions/upload-artifact@v7.0.2
+        if: always()
+        with:
+          name: e11-a-evidence-${{ github.run_id }}
+          path: work/e11-a-ci/
+          retention-days: 14
