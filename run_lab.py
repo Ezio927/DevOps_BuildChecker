@@ -12,6 +12,6 @@ else:
  out=(root/a.out).resolve()
  if not out.is_relative_to(root/'work') or out==root/'work':p.error('--out must be a fresh subdirectory of work/')
  if out.exists():p.error('output directory already exists; choose a new name')
- cmd=['docker','run','--rm','--network','none','--cap-add','SYS_PTRACE','--user',str(os.getuid())+':'+str(os.getgid()),'-e','HOME=/tmp','-v',str(root)+':/course','-w','/course',image,'python3','labs/e8e10/lab.py',a.stage,'--track',a.track,'--out','/course/'+str(out.relative_to(root))]
+ cmd=['docker','run','--rm','--network','none','--cpus','2','--memory','1g','--pids-limit','256','--security-opt','no-new-privileges:true','--cap-add','SYS_PTRACE','--user',str(os.getuid())+':'+str(os.getgid()),'-e','HOME=/tmp','-v',str(root)+':/course','-w','/course',image,'python3','labs/e8e10/lab.py',a.stage,'--track',a.track,'--out','/course/'+str(out.relative_to(root))]
 print('IMAGE='+image,flush=True)
 raise SystemExit(subprocess.call(cmd,cwd=root))
