@@ -19,13 +19,15 @@ A03 的 A 组独立课程仓库，负责 BuildChecker 全量依赖检测与 EChe
 现有 E8—E10 代码和 241880465 的个人贡献来自上述迁移起点；它们不代表其他成员已经完成实验。
 241880444 已于 2026-11-11 在 A03 云主机个人目录完成 E5—E7、E8—E10 的运行、个人测试和报告。
 详见 [E5—E7 报告](docs/students/241880444/e5-e7/个人报告.md) 与
-[E8—E10 报告](docs/students/241880444/e8-e10/个人报告.md)。E11—E12 尚未导入或执行。
+[E8—E10 报告](docs/students/241880444/e8-e10/个人报告.md)。E11-A 的个人云端集成与扩展也已完成，
+见 [E11-A 报告](docs/students/241880444/e11-a/个人报告.md)。本次未执行 E11-B/E12 或跨组联调。
 
 - E8—E10 入口：`run_lab.py`、`labs/e8e10/`。
 - CI：`.github/workflows/e8e10.yml`，检查名 `e8e10-quality-gate`。
 - 现有 CI 运行课程共享的 A/B 参考回归；保留 B 参考场景用于验证，不改变 A 组交付边界。
 - 本人报告放在 `docs/students/<学号>/`；`work/`、本地配置和提交老师的压缩包单独归档。
-- main 使用 PR，必需检查为 e7-a-quality-gate 与 e8e10-quality-gate；E11—E12 检查后续补齐。
+- main 使用 PR，检查为 e7-a-quality-gate、e8e10-quality-gate、e11-a-integration；E12 检查后续补齐。
+- E11-A 入口：`python3 scripts/run_student_e11_a.py --out work/新的个人目录`；其 A-only 模式禁网且无 Docker socket。
 
 迁移与协作约定见 [仓库说明](docs/repository-split.md)。下方保留原合并仓库文档和相对链接。
 
