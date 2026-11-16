@@ -2,12 +2,19 @@
 import copy
 import hashlib
 import json
+import tempfile
 import unittest
+from pathlib import Path
+
+from pipeline import check_envelope, save
+from server import Store
 
 
 def verify_handoff(source_bytes, consumer):
     """验证 B 的消费封装完整保留 A 报告的数据与来源。"""
     source = json.loads(source_bytes)
+    check_envelope(source, source['commit'], 'incremental-check')
+    check_envelope(consumer, source['commit'], 'incremental-check')
     expected = {
         'source_job_id': source['job_id'],
         'source_trace_id': source['trace_id'],
@@ -30,7 +37,8 @@ class Handoff241880465Tests(unittest.TestCase):
 
     def setUp(self):
         """建立确定的跨仓库报告及摘要。"""
-        self.source = {'kind': 'incremental-check', 'commit': 'a'*40,
+        self.source = {'schema_version': 'e11e12-1', 'status': 'SUCCEEDED',
+                       'kind': 'incremental-check', 'commit': 'a'*40,
                        'job_id': 'job-source', 'trace_id': 'trace-source',
                        'data': {'commit': 'a'*40, 'actual': {'main.o': ['main.c']}, 'findings': []}}
         self.raw = json.dumps(self.source).encode()
@@ -53,3 +61,31 @@ class Handoff241880465Tests(unittest.TestCase):
         self.consumer['provenance']['source_job_id'] = 'job-other'
         with self.assertRaisesRegex(ValueError, 'PROVENANCE_MISMATCH'):
             verify_handoff(self.raw, self.consumer)
+
+    def test_changed_payload_commit(self):
+        """拒绝封装版本正确但内部报告版本过期的交接。"""
+        source = copy.deepcopy(self.source)
+        source['data']['commit'] = 'b'*40
+        raw = json.dumps(source).encode()
+        self.consumer['provenance']['source_sha256'] = hashlib.sha256(raw).hexdigest()
+        with self.assertRaisesRegex(ValueError, 'STALE_REPORT'):
+            verify_handoff(raw, self.consumer)
+
+    def test_restarted_store_marks_unfinished_jobs(self):
+        """用持久化状态验证重启恢复，未完成任务失败且成功任务可查询。"""
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for status in ('QUEUED', 'RUNNING', 'SUCCEEDED'):
+                state = {'job_id': 'job-' + status, 'status': status,
+                         'idempotency_key': status, 'request_hash': status}
+                save(root / state['job_id'] / 'state.json', state)
+            store = Store(root)
+            try:
+                for status in ('QUEUED', 'RUNNING'):
+                    recovered = store.jobs['job-' + status]
+                    self.assertEqual(recovered['status'], 'FAILED')
+                    self.assertEqual(recovered['error']['code'], 'SERVER_RESTARTED')
+                    self.assertEqual(json.loads((root / recovered['job_id'] / 'state.json').read_text()), recovered)
+                self.assertEqual(store.jobs['job-SUCCEEDED']['status'], 'SUCCEEDED')
+            finally:
+                store.pool.shutdown()
