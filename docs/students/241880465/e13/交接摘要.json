@@ -1,0 +1,38 @@
+{
+  "a": [
+    {
+      "group": "A",
+      "directory": "e13-a-project-v2",
+      "job_id": "job-8e9c093fff5d48d4a47bb4be12134ee3",
+      "trace_id": "trace-fbe6c1fa510a413d96b966be9d1b2918",
+      "target_commit": "93ef2b34b5645ac3578a7b3d34792d80441b4ac6",
+      "verified_artifacts": 85
+    },
+    {
+      "group": "B",
+      "directory": "e13-c1-a-v3",
+      "job_id": "job-ec8b6f66bbff4fef81d1e8d8d0209e65",
+      "trace_id": "trace-a4f1cbf4b1104b03a9ec2ffdc13a312e",
+      "target_commit": "93ef2b34b5645ac3578a7b3d34792d80441b4ac6",
+      "verified_artifacts": 96
+    }
+  ],
+  "b": [
+    {
+      "group": "A",
+      "directory": "e13-b-project",
+      "job_id": "job-135c65f83d7d4c0e93656286baa31d85",
+      "trace_id": "trace-17f5c3cc8c7448508e05e57a7742f242",
+      "target_commit": "77b40fd134d6e237e78ba0327d2c7605787c3981",
+      "verified_artifacts": 83
+    },
+    {
+      "group": "B",
+      "directory": "e13-c1-b-v2",
+      "job_id": "job-544ab1949fdc41eeb730a36bed492386",
+      "trace_id": "trace-cd38cd83a6814305b4836ec4faa79a3a",
+      "target_commit": "77b40fd134d6e237e78ba0327d2c7605787c3981",
+      "verified_artifacts": 95
+    }
+  ]
+}

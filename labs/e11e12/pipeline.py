@@ -138,7 +138,14 @@ def execute(request, out, job_id=None):
         else:
             # E11-B still consumes a fixed MD input, separately from A's live output.
             fixed=Path(request['fixed_report'])
-            envelope=json.loads(fixed.read_text(encoding='utf-8'))
+            # 提供交接哈希时，先验证原始字节再解析报告。
+            expected_sha=request.get('fixed_report_sha256')
+            if expected_sha is not None:
+                if not isinstance(expected_sha,str) or not re.fullmatch(r'[0-9a-fA-F]{64}',expected_sha):
+                    raise Failure('INVALID_REPORT_SHA','交接报告 SHA256 必须为 64 位十六进制字符')
+                envelope=load_artifact(fixed,expected_sha.lower())
+            else:
+                envelope=json.loads(fixed.read_text(encoding='utf-8'))
             check_envelope(envelope,target_sha,'fixed-md')
             current=envelope['data']
             if current.get('commit') != target_sha:
