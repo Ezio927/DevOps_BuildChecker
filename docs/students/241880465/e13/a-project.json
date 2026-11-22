@@ -1,0 +1,9 @@
+{
+  "provider": "A03/241880465",
+  "executor": "241880465 using A/B code in isolated copies",
+  "source": "modified course C/Make fixture",
+  "base": "e31c977a064cd593a34488e8b9ee0d1a57061fed",
+  "target": "93ef2b34b5645ac3578a7b3d34792d80441b4ac6",
+  "expected_output": "1",
+  "limitations": "two C files and explicit Make rules; not an external project; peer human reproduction pending"
+}

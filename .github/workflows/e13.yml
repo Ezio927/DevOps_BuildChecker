@@ -1,0 +1,20 @@
+name: E13 交接契约检查
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  contracts:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: 验证报告交接和哈希拒绝
+        run: |
+          python3 -m py_compile labs/e11e12/pipeline.py labs/e13e14/*.py
+          python3 -m unittest discover -s labs/e11e12 -p test_contract.py -v
+          python3 -m unittest discover -s labs/e13e14/tests -p 'test_*.py' -v
+      - name: 扫描源码和历史
+        run: python3 scripts/secret_scan.py . --history
