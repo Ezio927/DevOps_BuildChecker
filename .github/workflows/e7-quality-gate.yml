@@ -50,7 +50,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          docker build --progress=plain -f services/buildchecker/Dockerfile -t "$IMAGE" . 2>&1 | tee work/ci/build.log
+          docker build --progress=plain \
+            --build-arg BASE_IMAGE=docker.io/library/python:3.13-slim@sha256:f82c96458eedc847b233e582eb31336f4954b39cae020b6dcf5b3ed0e5cbcd74 \
+            -f services/buildchecker/Dockerfile -t "$IMAGE" . 2>&1 | tee work/ci/build.log
           docker image inspect "$IMAGE" > work/ci/service-image-inspect.json
 
       - name: Scan built image

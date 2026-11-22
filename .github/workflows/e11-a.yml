@@ -13,12 +13,17 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
       - name: Prepare identity and A-only toolchain
+        shell: bash
         run: |
+          set -euo pipefail
           git config --local user.name 241880444
           git config --local user.email 241880444@smail.nju.edu.cn
           mkdir -p work/e11-a-ci
           git rev-parse HEAD > work/e11-a-ci/commit.txt
-          python3 run_e11e12.py build --a-only > work/e11-a-ci/build.log 2>&1
+          docker build \
+            --build-arg BASE_IMAGE=docker.io/library/python:3.13-slim@sha256:f82c96458eedc847b233e582eb31336f4954b39cae020b6dcf5b3ed0e5cbcd74 \
+            -f labs/e8e10/environment/services/buildchecker/Dockerfile -t course-e11a:241880444 \
+            labs/e8e10/environment 2>&1 | tee work/e11-a-ci/build.log
           docker image inspect course-e11a:241880444 > work/e11-a-ci/image.json
       - name: Validate A contracts and real A integration
         shell: bash
