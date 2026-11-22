@@ -19,6 +19,9 @@ PATTERNS = (
     ("secret assignment", re.compile(r"(?i)\b[\w.-]*(?:api[_-]?key|secret|token|passw(?:or)?d)\b\s*[:=]\s*[\"']?([^\s\"'#,;]{12,})")),
 )
 PLACEHOLDER = re.compile(r"(?i)replace|your[_-]|example|changeme|xxxx|<[^>]*>|\$\{|\$\(|\*\*\*")
+C_TOKEN_EXPRESSION = re.compile(
+    r"""\s*token\s*=\s*(?:[a-zA-Z_]\w*\s*\([^;'"()]*\)|&[a-zA-Z_]\w*\s*\[[^;'"\[\]]*\])\s*;\s*"""
+)
 
 
 def candidates(root: Path):
@@ -62,8 +65,12 @@ def main(argv=None) -> int:
                         for name, pattern in PATTERNS:
                             for match in pattern.finditer(line):
                                 value = match.group(match.lastindex or 0)
-                                if name == "secret assignment" and PLACEHOLDER.search(value):
-                                    continue
+                                if name == "secret assignment":
+                                    # The jsmn token variable points to parsed data.
+                                    if PLACEHOLDER.search(value) or (
+                                        path.suffix in {".c", ".h"} and C_TOKEN_EXPRESSION.fullmatch(line)
+                                    ):
+                                        continue
                                 print(f"FOUND {path}:{lineno} {name} {mask(value)}")
                                 hits += 1
             except OSError as exc:
