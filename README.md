@@ -28,7 +28,7 @@ A03 的 A 组独立课程仓库，负责 BuildChecker 全量依赖检测与 EChe
 - CI：`.github/workflows/e8e10.yml`，检查名 `e8e10-quality-gate`。
 - 现有 CI 运行课程共享的 A/B 参考回归；保留 B 参考场景用于验证，不改变 A 组交付边界。
 - 本人报告放在 `docs/students/<学号>/`；`work/`、本地配置和提交老师的压缩包单独归档。
-- main 使用 PR，检查为 e7-a-quality-gate、e8e10-quality-gate、e11-a-integration；E12 检查后续补齐。
+- main 的 PR 要求通过 e7-a-quality-gate、e8e10-quality-gate 和 e11-a-integration。E13 工作流另跑交接契约检查。E12 配对项目与 API 的运行记录见[组员验收](docs/students/241880465/e12/个人报告.md)，E13 见[交叉测试](docs/students/241880465/e13/执行记录.md)。B 组仓库维护四服务联调工作流。
 - E11-A 入口：`python3 scripts/run_student_e11_a.py --out work/新的个人目录`；其 A-only 模式禁网且无 Docker socket。
 
 迁移与协作约定见 [仓库说明](docs/repository-split.md)。下方保留原合并仓库文档和相对链接。

@@ -37,5 +37,10 @@ jobs:
         if: always()
         with:
           name: e11-a-evidence-${{ github.run_id }}
-          path: work/e11-a-ci/
+          # Project .gitignore files are hashed in the result manifests.
+          include-hidden-files: true
+          path: |
+            work/e11-a-ci/
+            !work/e11-a-ci/**/.git
+            !work/e11-a-ci/**/.git/**
           retention-days: 14

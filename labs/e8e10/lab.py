@@ -45,17 +45,30 @@ def declarations(p):
         graph[target]=sorted(set(dep.split()))
     return graph,variables.get('CFLAGS','')
 
+def dependency_lines(source):
+    # GCC splices physical lines before interpreting directives and comments.
+    logical = re.sub(r'\\[ \t]*\n', '', source)
+    lines = logical.splitlines()
+    if '/*' in logical:
+        # A comment boundary in ordinary code can enable or hide a directive.
+        return lines
+    return [line for line in lines if line.lstrip().startswith(('#', '%:'))]
+
 def scan(p, old=None):
     start=time.perf_counter(); declared,flags=declarations(p)
     if flags not in ['-O0','-O1','-O0 -DMODE=1']: raise ValueError('UNSUPPORTED_FLAGS')
     # Conservative invalidation: all local preprocessor lines, source set and recipes.
-    files={x.name:x.read_text() for x in sorted(p.glob('*')) if x.suffix in ['.c','.h']}
-    key={'directives':{n:[l for l in t.splitlines() if l.lstrip().startswith('#')] for n,t in files.items()},
+    files={x.name:x.read_text() for x in sorted(p.glob('*')) if x.suffix in ['.c','.h'] and x.is_file()}
+    key={'directives':{n:dependency_lines(t) for n,t in files.items()},
          'recipes':[l for l in (p/'Makefile').read_text().splitlines() if l.startswith('\t')],
          'flags':flags,'compiler':run(['gcc','--version'],p).splitlines()[0]}
+    # File-existence probes can change the graph before GCC has observed a file.
+    reusable = old and old['key'] == key and not any(
+        '__has_include' in line for lines in key['directives'].values() for line in lines)
     actual={}; refreshed=[]; reused=[]
     for target,source in [('main.o','main.c'),('helper.o','helper.c')]:
-        if old and old['key']==key and target in old['actual']:
+        # Dependencies outside the indexed top-level files need a fresh observation.
+        if reusable and target in old['actual'] and all(dep in files for dep in old['actual'][target]):
             actual[target]=old['actual'][target]; reused.append(target)
         else:
             output=run(['gcc',*flags.split(),'-MM','-MT',target,source],p)

@@ -21,6 +21,37 @@ class ProfileTests(unittest.TestCase):
         r=scan(self.p,old)
         self.assertIn(['MISSING','main.o','extra.h'],r['added']);self.assertEqual(len(r['refreshed']),2)
 
+    def test_continued_include_macro_uses_new_header(self):
+        source = self.p / 'main.c'
+        source.write_text('#define CHOSEN \\\n"config.h"\n#include CHOSEN\n')
+        old = scan(self.p)
+        source.write_text(source.read_text().replace('"config.h"', '"extra.h"'))
+        self.assertEqual(scan(self.p, old)['actual']['main.o'], ['extra.h', 'main.c'])
+
+    def test_block_comment_can_hide_a_directive(self):
+        source = self.p / 'main.c'
+        source.write_text('/* comment */\n#include "config.h"\n// */\n')
+        old = scan(self.p)
+        source.write_text(source.read_text().replace('/* comment */', '/* comment'))
+        self.assertEqual(scan(self.p, old)['actual']['main.o'], ['main.c'])
+
+    def test_unindexed_header_is_rechecked_for_its_own_target(self):
+        (self.p / 'main.c').write_text('#include "list.inc"\n')
+        header = self.p / 'list.inc'
+        header.write_text('#include "config.h"\n')
+        old = scan(self.p)
+        header.write_text('#include "extra.h"\n')
+        result = scan(self.p, old)
+        self.assertEqual(result['actual']['main.o'], ['extra.h', 'list.inc', 'main.c'])
+        self.assertEqual(result['reused'], ['helper.o'])
+
+    def test_optional_header_appearing_changes_graph(self):
+        (self.p / 'main.c').write_text(
+            '#if __has_include("optional.inc")\n#include "optional.inc"\n#endif\n')
+        old = scan(self.p)
+        (self.p / 'optional.inc').write_text('/* now present */\n')
+        self.assertEqual(scan(self.p, old)['actual']['main.o'], ['main.c', 'optional.inc'])
+
     def test_patch_preserves_redundant_dependency(self):
         r=scan(self.p);diff,plan=patch(self.p,r)
         self.assertIn('+main.o: main.c unused.h config.h',diff)
