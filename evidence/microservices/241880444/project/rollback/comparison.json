@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "job_id": "job-bb3b526c5016483aba35850892d877c1",
+  "trace_id": "trace-35e7b7d134654879925efcad0665b978",
+  "partial_fix": {
+    "type": "MISSING",
+    "target": "main.o",
+    "dependency": "config.h"
+  },
+  "validation": {
+    "accepted": false,
+    "checks": {
+      "patch_applies": true,
+      "build": true,
+      "test": true,
+      "header_change": true,
+      "no_missing": false
+    },
+    "error": null,
+    "source_unchanged": true,
+    "rollback": true
+  },
+  "checkout_before": {
+    "head": "93ef2b34b5645ac3578a7b3d34792d80441b4ac6",
+    "status": "",
+    "makefile_sha256": "9206301c23ce4cb93c3fc1434037e475cf69f53e132dc541f6028d05e30258b2"
+  },
+  "checkout_after": {
+    "head": "93ef2b34b5645ac3578a7b3d34792d80441b4ac6",
+    "status": "",
+    "makefile_sha256": "9206301c23ce4cb93c3fc1434037e475cf69f53e132dc541f6028d05e30258b2"
+  },
+  "source_before": {
+    "head": "93ef2b34b5645ac3578a7b3d34792d80441b4ac6",
+    "status": "",
+    "makefile_sha256": "9206301c23ce4cb93c3fc1434037e475cf69f53e132dc541f6028d05e30258b2"
+  },
+  "source_after": {
+    "head": "93ef2b34b5645ac3578a7b3d34792d80441b4ac6",
+    "status": "",
+    "makefile_sha256": "9206301c23ce4cb93c3fc1434037e475cf69f53e132dc541f6028d05e30258b2"
+  }
+}

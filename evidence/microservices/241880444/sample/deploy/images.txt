@@ -1,0 +1,5 @@
+CONTAINER                         REPOSITORY                                TAG                 PLATFORM            IMAGE ID            SIZE                CREATED
+a03-444-livesample-api-1          course-e11e12                             241880444           linux/amd64         b56097de23a3        207MB               2 days ago
+a03-444-livesample-grafana-1      m.daocloud.io/docker.io/grafana/grafana   <none>              linux/amd64         488984b716c0        503MB               10 seconds ago
+a03-444-livesample-prometheus-1   m.daocloud.io/docker.io/prom/prometheus   <none>              linux/amd64         38c3b05c3bc7        124MB               19 minutes ago
+a03-444-livesample-worker-1       course-e11e12                             241880444           linux/amd64         b56097de23a3        207MB               2 days ago

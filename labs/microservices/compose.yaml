@@ -1,0 +1,65 @@
+x-course: &course
+  image: ${PROJECT_IMAGE:?set PROJECT_IMAGE to the E12 toolchain image}
+  pull_policy: never
+  user: "${LAB_UID:?set LAB_UID}:${LAB_GID:?set LAB_GID}"
+  working_dir: /course
+  init: true
+  cpus: 1.5
+  mem_limit: 768m
+  pids_limit: 160
+  security_opt: [no-new-privileges:true]
+  healthcheck:
+    test: ["CMD", "python3", "-c", "from urllib.request import urlopen; urlopen('http://127.0.0.1:8080/health', timeout=2).close()"]
+    interval: 3s
+    timeout: 3s
+    retries: 10
+
+services:
+  api:
+    <<: *course
+    command: [python3, -u, labs/e11e12/server.py, --host, 0.0.0.0]
+    environment:
+      HOME: /tmp
+      BUILDCHECKER_URL: http://buildchecker:8080
+    dns_opt: ["timeout:1", "attempts:1"]
+    group_add: ["${DOCKER_GID:?set DOCKER_GID}"]
+    volumes:
+      - ../e11e12:/course/labs/e11e12:ro
+      - ../e8e10:/course/labs/e8e10:ro
+      - ./rollback.py:/course/labs/microservices/rollback.py:ro
+      - ../../data:/course/data:ro
+      - ${MICRO_WORK:-../../work/microservice-project}:/course/work
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      buildchecker:
+        condition: service_healthy
+    ports: ["127.0.0.1:${LAB_API_PORT:-18080}:8080"]
+  buildchecker:
+    <<: *course
+    command: [python3, -u, labs/e11e12/checker_service.py]
+    cap_add: [SYS_PTRACE]
+    volumes:
+      - ../e11e12:/course/labs/e11e12:ro
+      - ../e8e10:/course/labs/e8e10:ro
+      - ../../services/buildchecker:/app:ro
+      - ${MICRO_WORK:-../../work/microservice-project}:/course/work
+  prometheus:
+    image: ${PROMETHEUS_IMAGE:-prom/prometheus:v3.5.1}
+    command: [--config.file=/etc/prometheus/prometheus.yml, --storage.tsdb.path=/prometheus, --storage.tsdb.retention.time=2d]
+    ports: ["127.0.0.1:${LAB_PROM_PORT:-19090}:9090"]
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+  grafana:
+    image: ${GRAFANA_IMAGE:-grafana/grafana:13.3.0}
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:?set a private Grafana password}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    ports: ["127.0.0.1:${LAB_GRAFANA_PORT:-13000}:3000"]
+    volumes:
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards:ro
+      - grafana-data:/var/lib/grafana
+volumes:
+  prometheus-data:
+  grafana-data:

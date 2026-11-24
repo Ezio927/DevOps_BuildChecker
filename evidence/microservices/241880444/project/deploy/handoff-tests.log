@@ -1,0 +1,17 @@
+test_changed_bytes_rejected_before_repair (test_fixed_report.FixedReportTests)
+通过流水线入口提交篡改报告，确认修复没有执行。 ... ok
+test_changed_inner_artifact_is_rejected (test_handoff.HandoffTests)
+验证篡改的内部产物被拒绝。 ... ok
+test_live_a_report_becomes_b_input_with_provenance (test_handoff.HandoffTests)
+验证转换后保留来源任务信息。 ... ok
+test_other_target_is_rejected (test_handoff.HandoffTests)
+验证其他提交的报告被拒绝。 ... ok
+test_c_token_string_remains_a_hit (test_scan_runtime_logs.RuntimeScanTests) ... ok
+test_log_does_not_get_c_source_exception (test_scan_runtime_logs.RuntimeScanTests) ... ok
+test_parser_token_pointer_is_clean (test_scan_runtime_logs.RuntimeScanTests) ... ok
+test_standard_key_detector_still_checks_c_source (test_scan_runtime_logs.RuntimeScanTests) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.008s
+
+OK

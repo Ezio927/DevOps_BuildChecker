@@ -1,0 +1,9 @@
+{
+  "attempts": 3,
+  "duration_ms": 1004,
+  "error_code": "DOWNSTREAM_UNAVAILABLE",
+  "job_id": "job-72f3283cbf76405ba4ccbf991c43ec21",
+  "sample": "dependencies",
+  "status": "FAILED",
+  "trace_id": "trace-3a0c198149b74c2d9fb73a02092e51b5"
+}

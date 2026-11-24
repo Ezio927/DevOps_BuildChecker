@@ -1,0 +1,146 @@
+[
+  {
+    "timestamp": "2026-11-24T15:53:32.584790+00:00",
+    "service": "api",
+    "event": "job_started",
+    "job_id": "job-a83069ecf03941d7a9b2a7ed5ebb8577",
+    "trace_id": "trace-33b864dc76d94bd7a6d3090d6f018fb3",
+    "mode": "e12"
+  },
+  {
+    "timestamp": "2026-11-24T15:53:37.603809+00:00",
+    "service": "api",
+    "event": "stage_finished",
+    "job_id": "job-a83069ecf03941d7a9b2a7ed5ebb8577",
+    "trace_id": "trace-33b864dc76d94bd7a6d3090d6f018fb3",
+    "stage": "draft",
+    "status": "SUCCEEDED"
+  },
+  {
+    "timestamp": "2026-11-24T15:53:37.604169+00:00",
+    "service": "api",
+    "event": "checker_call",
+    "job_id": "job-a83069ecf03941d7a9b2a7ed5ebb8577",
+    "trace_id": "trace-33b864dc76d94bd7a6d3090d6f018fb3",
+    "stage": "baseline-full",
+    "attempt": 1
+  },
+  {
+    "timestamp": "2026-11-24T15:53:37.625931+00:00",
+    "service": "buildchecker",
+    "event": "check_started",
+    "job_id": "job-a83069ecf03941d7a9b2a7ed5ebb8577",
+    "trace_id": "trace-33b864dc76d94bd7a6d3090d6f018fb3",
+    "stage": "baseline-full"
+  },
+  {
+    "timestamp": "2026-11-24T15:53:38.034315+00:00",
+    "service": "buildchecker",
+    "event": "check_finished",
+    "job_id": "job-a83069ecf03941d7a9b2a7ed5ebb8577",
+    "trace_id": "trace-33b864dc76d94bd7a6d3090d6f018fb3",
+    "stage": "baseline-full",
+    "status": "SUCCEEDED",
+    "duration_ms": 408
+  },
+  {
+    "timestamp": "2026-11-24T15:53:38.052427+00:00",
+    "service": "api",
+    "event": "stage_finished",
+    "job_id": "job-a83069ecf03941d7a9b2a7ed5ebb8577",
+    "trace_id": "trace-33b864dc76d94bd7a6d3090d6f018fb3",
+    "stage": "full-check",
+    "status": "SUCCEEDED"
+  },
+  {
+    "timestamp": "2026-11-24T15:53:38.068072+00:00",
+    "service": "api",
+    "event": "checker_call",
+    "job_id": "job-a83069ecf03941d7a9b2a7ed5ebb8577",
+    "trace_id": "trace-33b864dc76d94bd7a6d3090d6f018fb3",
+    "stage": "target-full",
+    "attempt": 1
+  },
+  {
+    "timestamp": "2026-11-24T15:53:38.069003+00:00",
+    "service": "buildchecker",
+    "event": "check_started",
+    "job_id": "job-a83069ecf03941d7a9b2a7ed5ebb8577",
+    "trace_id": "trace-33b864dc76d94bd7a6d3090d6f018fb3",
+    "stage": "target-full"
+  },
+  {
+    "timestamp": "2026-11-24T15:53:38.205536+00:00",
+    "service": "buildchecker",
+    "event": "check_finished",
+    "job_id": "job-a83069ecf03941d7a9b2a7ed5ebb8577",
+    "trace_id": "trace-33b864dc76d94bd7a6d3090d6f018fb3",
+    "stage": "target-full",
+    "status": "SUCCEEDED",
+    "duration_ms": 137
+  },
+  {
+    "timestamp": "2026-11-24T15:53:38.206946+00:00",
+    "service": "api",
+    "event": "stage_finished",
+    "job_id": "job-a83069ecf03941d7a9b2a7ed5ebb8577",
+    "trace_id": "trace-33b864dc76d94bd7a6d3090d6f018fb3",
+    "stage": "incremental-check",
+    "status": "SUCCEEDED"
+  },
+  {
+    "timestamp": "2026-11-24T15:53:38.211153+00:00",
+    "service": "api",
+    "event": "stage_finished",
+    "job_id": "job-a83069ecf03941d7a9b2a7ed5ebb8577",
+    "trace_id": "trace-33b864dc76d94bd7a6d3090d6f018fb3",
+    "stage": "repair",
+    "status": "SUCCEEDED"
+  },
+  {
+    "timestamp": "2026-11-24T15:53:39.421499+00:00",
+    "service": "api",
+    "event": "checker_call",
+    "job_id": "job-a83069ecf03941d7a9b2a7ed5ebb8577",
+    "trace_id": "trace-33b864dc76d94bd7a6d3090d6f018fb3",
+    "stage": "final-full",
+    "attempt": 1
+  },
+  {
+    "timestamp": "2026-11-24T15:53:39.422402+00:00",
+    "service": "buildchecker",
+    "event": "check_started",
+    "job_id": "job-a83069ecf03941d7a9b2a7ed5ebb8577",
+    "trace_id": "trace-33b864dc76d94bd7a6d3090d6f018fb3",
+    "stage": "final-full"
+  },
+  {
+    "timestamp": "2026-11-24T15:53:39.550833+00:00",
+    "service": "buildchecker",
+    "event": "check_finished",
+    "job_id": "job-a83069ecf03941d7a9b2a7ed5ebb8577",
+    "trace_id": "trace-33b864dc76d94bd7a6d3090d6f018fb3",
+    "stage": "final-full",
+    "status": "SUCCEEDED",
+    "duration_ms": 128
+  },
+  {
+    "timestamp": "2026-11-24T15:53:39.551758+00:00",
+    "service": "api",
+    "event": "stage_finished",
+    "job_id": "job-a83069ecf03941d7a9b2a7ed5ebb8577",
+    "trace_id": "trace-33b864dc76d94bd7a6d3090d6f018fb3",
+    "stage": "recheck",
+    "status": "SUCCEEDED"
+  },
+  {
+    "timestamp": "2026-11-24T15:53:39.566839+00:00",
+    "service": "api",
+    "event": "job_finished",
+    "job_id": "job-a83069ecf03941d7a9b2a7ed5ebb8577",
+    "trace_id": "trace-33b864dc76d94bd7a6d3090d6f018fb3",
+    "status": "SUCCEEDED",
+    "duration_ms": 6982,
+    "error": null
+  }
+]

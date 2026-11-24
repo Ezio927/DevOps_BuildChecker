@@ -1,0 +1,41 @@
+[
+  {
+    "timestamp": "2026-11-24T15:53:45.153394+00:00",
+    "service": "api",
+    "event": "job_started",
+    "job_id": "job-1f787e1647a141bb86469cf667115fe4",
+    "trace_id": "trace-37748deb808845d2a2a5986c03452cc7",
+    "mode": "e12"
+  },
+  {
+    "timestamp": "2026-11-24T15:53:46.348757+00:00",
+    "service": "api",
+    "event": "stage_finished",
+    "job_id": "job-1f787e1647a141bb86469cf667115fe4",
+    "trace_id": "trace-37748deb808845d2a2a5986c03452cc7",
+    "stage": "draft",
+    "status": "SUCCEEDED"
+  },
+  {
+    "timestamp": "2026-11-24T15:53:46.348847+00:00",
+    "service": "api",
+    "event": "checker_call",
+    "job_id": "job-1f787e1647a141bb86469cf667115fe4",
+    "trace_id": "trace-37748deb808845d2a2a5986c03452cc7",
+    "stage": "baseline-full",
+    "attempt": 1
+  },
+  {
+    "timestamp": "2026-11-24T15:53:46.353365+00:00",
+    "service": "api",
+    "event": "job_finished",
+    "job_id": "job-1f787e1647a141bb86469cf667115fe4",
+    "trace_id": "trace-37748deb808845d2a2a5986c03452cc7",
+    "status": "FAILED",
+    "duration_ms": 1201,
+    "error": {
+      "code": "DOWNSTREAM_UNAVAILABLE",
+      "message": "buildchecker/baseline-full: <urlopen error [Errno -3] Temporary failure in name resolution>"
+    }
+  }
+]

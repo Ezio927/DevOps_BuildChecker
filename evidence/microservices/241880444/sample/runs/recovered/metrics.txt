@@ -1,0 +1,7 @@
+# TYPE lab_jobs_total counter
+lab_jobs_total{status="SUCCEEDED"} 2
+lab_jobs_total{status="FAILED"} 1
+lab_jobs_total{status="TIMED_OUT"} 0
+# TYPE lab_job_duration_seconds summary
+lab_job_duration_seconds_count 3
+lab_job_duration_seconds_sum 1.025165

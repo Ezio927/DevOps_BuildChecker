@@ -1,0 +1,13 @@
+{
+  "artifact": {
+    "path": "/v1/jobs/job-7a2f15ee197e474eb79ade5a175dca4f/report",
+    "sha256": "f977fd00c840276f44eef7027a10ebef5ddeca60d4ba5bdd191ecdb89e148dc2"
+  },
+  "attempts": 1,
+  "duration_ms": 17,
+  "error_code": null,
+  "job_id": "job-7a2f15ee197e474eb79ade5a175dca4f",
+  "sample": "dependencies",
+  "status": "SUCCEEDED",
+  "trace_id": "trace-afb16586f4354fc1869486d2a6281a82"
+}

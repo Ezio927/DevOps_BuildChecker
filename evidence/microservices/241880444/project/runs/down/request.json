@@ -1,0 +1,12 @@
+{
+  "input": {
+    "mode": "e12",
+    "repo": "/course/data/paired/A-project/repo",
+    "base": "e31c977a064cd593a34488e8b9ee0d1a57061fed",
+    "target": "93ef2b34b5645ac3578a7b3d34792d80441b4ac6",
+    "candidate": "/course/data/paired/A-project/candidate.Dockerfile",
+    "expected_output": "1",
+    "build_timeout": 150
+  },
+  "idempotency_key": "afb32b877a3f4725b3e235dedc2a54b2"
+}

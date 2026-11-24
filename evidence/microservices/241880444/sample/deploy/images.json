@@ -1,0 +1,46 @@
+{
+  "api": {
+    "container_id": "6b2f6e475bc7b49ef2cd14d554a361422df110dd0a655f071aba0c02f07eee41",
+    "image_id": "sha256:b56097de23a33509495ddd6014750b16247ccad67af27e68f89ed9847cd1af3b",
+    "image_ref": "course-e11e12:241880444",
+    "repo_digests": [
+      "course-e11e12@sha256:b56097de23a33509495ddd6014750b16247ccad67af27e68f89ed9847cd1af3b"
+    ],
+    "state": "running",
+    "health": "healthy",
+    "started": "2026-11-24T15:53:12.587974336Z"
+  },
+  "worker": {
+    "container_id": "b38b58070c45fbd5a4f4a2b24957921998334484f6b02725d7335145bfaeb8ab",
+    "image_id": "sha256:b56097de23a33509495ddd6014750b16247ccad67af27e68f89ed9847cd1af3b",
+    "image_ref": "course-e11e12:241880444",
+    "repo_digests": [
+      "course-e11e12@sha256:b56097de23a33509495ddd6014750b16247ccad67af27e68f89ed9847cd1af3b"
+    ],
+    "state": "running",
+    "health": "healthy",
+    "started": "2026-11-24T15:54:05.555358253Z"
+  },
+  "prometheus": {
+    "container_id": "30e33dc656a4f0fe7c8cc09d71dca45142acfa1ea660b2755a33dc9aa8f22171",
+    "image_id": "sha256:38c3b05c3bc744ff1b0b7b4eb82196026442845e62a1e2073795565da506d7a2",
+    "image_ref": "m.daocloud.io/docker.io/prom/prometheus@sha256:38c3b05c3bc744ff1b0b7b4eb82196026442845e62a1e2073795565da506d7a2",
+    "repo_digests": [
+      "m.daocloud.io/docker.io/prom/prometheus@sha256:38c3b05c3bc744ff1b0b7b4eb82196026442845e62a1e2073795565da506d7a2"
+    ],
+    "state": "running",
+    "health": null,
+    "started": "2026-11-24T15:53:08.396396732Z"
+  },
+  "grafana": {
+    "container_id": "3ad913acce727eb0f3a422a37471a62395bd002a7eae0caeac70ba4ac9545fa3",
+    "image_id": "sha256:488984b716c0862639f91a698adbe2862677a5a07bad42da5f03f3030883b205",
+    "image_ref": "m.daocloud.io/docker.io/grafana/grafana@sha256:488984b716c0862639f91a698adbe2862677a5a07bad42da5f03f3030883b205",
+    "repo_digests": [
+      "m.daocloud.io/docker.io/grafana/grafana@sha256:488984b716c0862639f91a698adbe2862677a5a07bad42da5f03f3030883b205"
+    ],
+    "state": "running",
+    "health": null,
+    "started": "2026-11-24T15:53:08.404440985Z"
+  }
+}

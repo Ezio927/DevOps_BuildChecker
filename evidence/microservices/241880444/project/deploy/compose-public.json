@@ -1,0 +1,315 @@
+{
+  "name": "a03-444-liveproject",
+  "networks": {
+    "default": {
+      "name": "a03-444-liveproject_default",
+      "ipam": {}
+    }
+  },
+  "services": {
+    "api": {
+      "cpus": 1.5,
+      "command": [
+        "python3",
+        "-u",
+        "labs/e11e12/server.py",
+        "--host",
+        "0.0.0.0"
+      ],
+      "depends_on": {
+        "buildchecker": {
+          "condition": "service_healthy",
+          "required": true
+        }
+      },
+      "dns_opt": [
+        "timeout:1",
+        "attempts:1"
+      ],
+      "entrypoint": null,
+      "environment": {
+        "BUILDCHECKER_URL": "http://buildchecker:8080",
+        "HOME": "/tmp"
+      },
+      "group_add": [
+        "121"
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "python3",
+          "-c",
+          "from urllib.request import urlopen; urlopen('http://127.0.0.1:8080/health', timeout=2).close()"
+        ],
+        "timeout": "3s",
+        "interval": "3s",
+        "retries": 10
+      },
+      "image": "course-e11e12:241880444",
+      "init": true,
+      "mem_limit": "805306368",
+      "networks": {
+        "default": null
+      },
+      "pids_limit": 160,
+      "ports": [
+        {
+          "mode": "ingress",
+          "host_ip": "127.0.0.1",
+          "target": 8080,
+          "published": "28544",
+          "protocol": "tcp"
+        }
+      ],
+      "pull_policy": "never",
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "user": "0:0",
+      "volumes": [
+        {
+          "type": "bind",
+          "source": "../e11e12",
+          "target": "/course/labs/e11e12",
+          "read_only": true,
+          "bind": {
+            "create_host_path": true
+          }
+        },
+        {
+          "type": "bind",
+          "source": "../e8e10",
+          "target": "/course/labs/e8e10",
+          "read_only": true,
+          "bind": {
+            "create_host_path": true
+          }
+        },
+        {
+          "type": "bind",
+          "source": "rollback.py",
+          "target": "/course/labs/microservices/rollback.py",
+          "read_only": true,
+          "bind": {
+            "create_host_path": true
+          }
+        },
+        {
+          "type": "bind",
+          "source": "../../data",
+          "target": "/course/data",
+          "read_only": true,
+          "bind": {
+            "create_host_path": true
+          }
+        },
+        {
+          "type": "bind",
+          "source": "../../work/microservice-project",
+          "target": "/course/work",
+          "bind": {
+            "create_host_path": true
+          }
+        },
+        {
+          "type": "bind",
+          "source": "/var/run/docker.sock",
+          "target": "/var/run/docker.sock",
+          "bind": {
+            "create_host_path": true
+          }
+        }
+      ],
+      "working_dir": "/course"
+    },
+    "buildchecker": {
+      "cap_add": [
+        "SYS_PTRACE"
+      ],
+      "cpus": 1.5,
+      "command": [
+        "python3",
+        "-u",
+        "labs/e11e12/checker_service.py"
+      ],
+      "entrypoint": null,
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "python3",
+          "-c",
+          "from urllib.request import urlopen; urlopen('http://127.0.0.1:8080/health', timeout=2).close()"
+        ],
+        "timeout": "3s",
+        "interval": "3s",
+        "retries": 10
+      },
+      "image": "course-e11e12:241880444",
+      "init": true,
+      "mem_limit": "805306368",
+      "networks": {
+        "default": null
+      },
+      "pids_limit": 160,
+      "pull_policy": "never",
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "user": "0:0",
+      "volumes": [
+        {
+          "type": "bind",
+          "source": "../e11e12",
+          "target": "/course/labs/e11e12",
+          "read_only": true,
+          "bind": {
+            "create_host_path": true
+          }
+        },
+        {
+          "type": "bind",
+          "source": "../e8e10",
+          "target": "/course/labs/e8e10",
+          "read_only": true,
+          "bind": {
+            "create_host_path": true
+          }
+        },
+        {
+          "type": "bind",
+          "source": "../../services/buildchecker",
+          "target": "/app",
+          "read_only": true,
+          "bind": {
+            "create_host_path": true
+          }
+        },
+        {
+          "type": "bind",
+          "source": "../../work/microservice-project",
+          "target": "/course/work",
+          "bind": {
+            "create_host_path": true
+          }
+        }
+      ],
+      "working_dir": "/course"
+    },
+    "grafana": {
+      "command": null,
+      "entrypoint": null,
+      "environment": {
+        "GF_USERS_ALLOW_SIGN_UP": "false"
+      },
+      "image": "m.daocloud.io/docker.io/grafana/grafana@sha256:488984b716c0862639f91a698adbe2862677a5a07bad42da5f03f3030883b205",
+      "networks": {
+        "default": null
+      },
+      "ports": [
+        {
+          "mode": "ingress",
+          "host_ip": "127.0.0.1",
+          "target": 3000,
+          "published": "28546",
+          "protocol": "tcp"
+        }
+      ],
+      "volumes": [
+        {
+          "type": "bind",
+          "source": "monitoring/grafana/provisioning",
+          "target": "/etc/grafana/provisioning",
+          "read_only": true,
+          "bind": {
+            "create_host_path": true
+          }
+        },
+        {
+          "type": "bind",
+          "source": "monitoring/grafana/dashboards",
+          "target": "/var/lib/grafana/dashboards",
+          "read_only": true,
+          "bind": {
+            "create_host_path": true
+          }
+        },
+        {
+          "type": "volume",
+          "source": "grafana-data",
+          "target": "/var/lib/grafana",
+          "volume": {}
+        }
+      ]
+    },
+    "prometheus": {
+      "command": [
+        "--config.file=/etc/prometheus/prometheus.yml",
+        "--storage.tsdb.path=/prometheus",
+        "--storage.tsdb.retention.time=2d"
+      ],
+      "entrypoint": null,
+      "image": "m.daocloud.io/docker.io/prom/prometheus@sha256:38c3b05c3bc744ff1b0b7b4eb82196026442845e62a1e2073795565da506d7a2",
+      "networks": {
+        "default": null
+      },
+      "ports": [
+        {
+          "mode": "ingress",
+          "host_ip": "127.0.0.1",
+          "target": 9090,
+          "published": "28545",
+          "protocol": "tcp"
+        }
+      ],
+      "volumes": [
+        {
+          "type": "bind",
+          "source": "monitoring/prometheus.yml",
+          "target": "/etc/prometheus/prometheus.yml",
+          "read_only": true,
+          "bind": {
+            "create_host_path": true
+          }
+        },
+        {
+          "type": "volume",
+          "source": "prometheus-data",
+          "target": "/prometheus",
+          "volume": {}
+        }
+      ]
+    }
+  },
+  "volumes": {
+    "grafana-data": {
+      "name": "a03-444-liveproject_grafana-data"
+    },
+    "prometheus-data": {
+      "name": "a03-444-liveproject_prometheus-data"
+    }
+  },
+  "x-course": {
+    "cpus": 1.5,
+    "healthcheck": {
+      "interval": "3s",
+      "retries": 10,
+      "test": [
+        "CMD",
+        "python3",
+        "-c",
+        "from urllib.request import urlopen; urlopen('http://127.0.0.1:8080/health', timeout=2).close()"
+      ],
+      "timeout": "3s"
+    },
+    "image": "course-e11e12:241880444",
+    "init": true,
+    "mem_limit": "768m",
+    "pids_limit": 160,
+    "pull_policy": "never",
+    "security_opt": [
+      "no-new-privileges:true"
+    ],
+    "user": "0:0",
+    "working_dir": "/course"
+  }
+}

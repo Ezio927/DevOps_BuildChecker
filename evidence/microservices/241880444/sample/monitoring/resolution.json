@@ -1,0 +1,7 @@
+{
+  "uid": "lab-prometheus",
+  "query_interval": "4s",
+  "prometheus_scrape_interval": "4s",
+  "display_config_commit": "9b7ccb060ed6b76f16270a6c51a1d9fcdf0318a2",
+  "task_source_commit": "70fcf8d91b4db5d0ecdc2e660e03c81ec118105e"
+}
