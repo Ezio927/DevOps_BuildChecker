@@ -4,15 +4,20 @@ from concurrent.futures import ThreadPoolExecutor
 import hashlib
 from http.server import BaseHTTPRequestHandler,ThreadingHTTPServer
 import json
+import os
 from pathlib import Path
 import threading
+from time import monotonic
 import uuid
 from urllib.parse import unquote
 from pipeline import ROOT,execute,save
+from telemetry import Durations, event
 
 class Store:
-    def __init__(self, root):
+    def __init__(self, root, checker_url=None):
         self.root=root;root.mkdir(parents=True,exist_ok=True)
+        self.checker_url = checker_url
+        self.metrics = Durations('a03_jobs', ('SUCCEEDED', 'FAILED', 'TIMED_OUT'))
         self.lock=threading.Lock();self.pool=ThreadPoolExecutor(max_workers=1)
         self.jobs={};self.keys={}
         for p in root.glob('job-*/state.json'):
@@ -45,13 +50,20 @@ class Store:
     def work(self,jid,request):
         state=self.jobs[jid]
         with self.lock:state['status']='RUNNING';save(self.root/jid/'state.json',state)
-        try:r=execute(request,self.root/jid/'evidence',jid)
+        started = monotonic()
+        try:r=execute(request,self.root/jid/'evidence',jid,checker_url=self.checker_url)
         except Exception as ex:r={'status':'FAILED','error':{'code':'WORKER_FAILED','message':str(ex)}}
+        seconds = monotonic() - started
         with self.lock:
-            state.update({k:r[k] for k in ('status','trace_id','error') if k in r});save(self.root/jid/'state.json',state)
+            state.update({k:r[k] for k in ('status','trace_id','error') if k in r})
+            state['duration_ms'] = round(seconds * 1000)
+            self.metrics.observe(state['status'], seconds)
+            save(self.root/jid/'state.json',state)
+        event('api', 'job_finished', jid, state.get('trace_id'), status=state['status'],
+              duration_ms=state['duration_ms'], error=state.get('error'))
 
 def serve(host='127.0.0.1',port=8080):
-    store=Store(ROOT/'work/api-jobs')
+    store=Store(ROOT/'work/api-jobs', checker_url=os.environ.get('BUILDCHECKER_URL'))
     class Handler(BaseHTTPRequestHandler):
         def reply(self,code,obj):
             data=json.dumps(obj,ensure_ascii=False).encode();self.send_response(code);self.send_header('Content-Type','application/json; charset=utf-8');self.end_headers();self.wfile.write(data)
@@ -64,6 +76,7 @@ def serve(host='127.0.0.1',port=8080):
             except (ValueError,KeyError,TypeError) as ex:self.reply(409 if str(ex)=='IDEMPOTENCY_CONFLICT' else 400,{'error':str(ex)})
         def do_GET(self):
             if self.path=='/health':return self.reply(200,{'status':'ok','schema_version':'e11e12-1'})
+            if self.path=='/metrics':return store.metrics.respond(self)
             parts=self.path.split('?')[0].strip('/').split('/')
             if len(parts)<3 or parts[:2]!=['v1','jobs'] or parts[2] not in store.jobs:return self.reply(404,{'error':'NOT_FOUND'})
             jid=parts[2];out=store.root/jid/'evidence'

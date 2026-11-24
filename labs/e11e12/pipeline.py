@@ -7,6 +7,9 @@ import subprocess
 import sys
 import uuid
 from pathlib import Path
+from urllib.error import HTTPError, URLError
+from urllib.request import Request, urlopen
+from telemetry import event
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path[:0] = [str(ROOT / 'labs/e8e10'), str(ROOT / 'labs/e11e12/vendor'), '/app']
@@ -86,7 +89,7 @@ def verify_incremental(current, reference, folder, target_sha):
     if normalized(reference['findings']) != normalized(current['findings']):
         raise Failure('FINDINGS_MISMATCH', 'Incremental/full object-target findings differ')
 
-def execute(request, out, job_id=None):
+def execute(request, out, job_id=None, *, checker_url=None):
     job_id = job_id or 'job-'+uuid.uuid4().hex
     trace_id = 'trace-'+uuid.uuid4().hex
     if out.exists() and any(out.iterdir()):
@@ -100,7 +103,28 @@ def execute(request, out, job_id=None):
                     'artifacts':[artifact(p,out,job_id) for p in files]}
         save(out/(name+'.json'),envelope)
         result['stages'].append({'name':name,'artifact':artifact(out/(name+'.json'),out,job_id)})
+        if checker_url:
+            event('api', 'stage_finished', job_id, trace_id, stage=name, status='SUCCEEDED')
         return envelope
+
+    def run_full(project, stage_name):
+        if not checker_url:
+            return full(project, out / stage_name)
+        body = {'job_id': job_id, 'trace_id': trace_id, 'stage': stage_name}
+        req = Request(checker_url + '/v1/full-check', data=json.dumps(body).encode(),
+                      headers={'Content-Type': 'application/json'})
+        event('api', 'checker_call', job_id, trace_id, stage=stage_name, attempt=1)
+        try:
+            with urlopen(req, timeout=260) as reply:
+                return json.load(reply)
+        except HTTPError as exc:
+            detail = exc.read().decode(errors='replace')
+            raise Failure('FULL_CHECK_FAILED', f'{stage_name}: HTTP {exc.code}: {detail}') from exc
+        except (URLError, TimeoutError, ConnectionError) as exc:
+            raise Failure('DOWNSTREAM_UNAVAILABLE', f'buildchecker/{stage_name}: {exc}') from exc
+
+    if checker_url:
+        event('api', 'job_started', job_id, trace_id, mode=request.get('mode'))
     try:
         mode=request['mode']
         if mode not in ('e11-a','e11-b','e12'):
@@ -120,7 +144,7 @@ def execute(request, out, job_id=None):
                 raise Failure('DRAFT_FAILED',draft.get('error','Inspect draft-build logs'))
             stage('draft',target_sha,draft,[out/'draft-build/result.json'])
         if mode in ('e11-a','e12'):
-            base_full=full(base,out/'baseline-full')
+            base_full=run_full(base,'baseline-full')
             old=scan(base)
             edges=json.loads((out/'baseline-full/actual-graph.json').read_text())
             projected={t:sorted({e['dependency'] for e in edges if e['target']==t}) for t in ('main.o','helper.o')}
@@ -132,7 +156,7 @@ def execute(request, out, job_id=None):
             check_envelope(baseline,base_sha,'full-check')
             current=scan(target,old)
             save(out/'incremental-report.json',current)
-            reference=full(target,out/'target-full')
+            reference=run_full(target,'target-full')
             verify_incremental(current, reference, out/'target-full', target_sha)
             md_envelope=stage('incremental-check',target_sha,current,[out/'incremental-report.json',out/'target-full/findings.json'])
         else:
@@ -167,7 +191,7 @@ def execute(request, out, job_id=None):
             verdict=validate(target,patchfile,out/'validation')
             if not verdict['accepted']:
                 raise Failure('REPAIR_REJECTED',str(verdict))
-            final=full(target,out/'final-full')
+            final=run_full(target,'final-full')
             if any(f['type']=='MISSING' for f in final['findings']):
                 (target/'Makefile').write_bytes(before)
                 raise Failure('RECHECK_FAILED','MD remains; working-copy declaration restored')
