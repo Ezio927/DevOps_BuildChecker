@@ -21,6 +21,10 @@ evidence/**/*.log text eol=lf
 evidence/**/*.json text eol=lf
 evidence/** text eol=lf
 evidence/**/*.bundle -text
+evidence/microservices/**/*.png binary
+# Keep the original Make recipe context and Docker's padded terminal columns.
+evidence/microservices/**/*.patch whitespace=-space-before-tab
+evidence/microservices/**/deploy/compose-*.txt whitespace=-blank-at-eol
 # Received member logs retain their original bytes, including Windows line endings.
 evidence/e4/241880465/20261011-230859-received/** -text
 .env.example text eol=lf

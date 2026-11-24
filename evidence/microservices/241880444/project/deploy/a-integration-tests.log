@@ -1,0 +1,25 @@
+test_changed_graph_with_same_findings (test_a_handoff_241880465.Handoff241880465Tests.test_changed_graph_with_same_findings)
+发现数量相同也必须拒绝实际图变化。 ... ok
+test_changed_payload_commit (test_a_handoff_241880465.Handoff241880465Tests.test_changed_payload_commit)
+拒绝封装版本正确但内部报告版本过期的交接。 ... ok
+test_changed_source_identity (test_a_handoff_241880465.Handoff241880465Tests.test_changed_source_identity)
+拒绝来源任务被替换的消费记录。 ... ok
+test_exact_handoff (test_a_handoff_241880465.Handoff241880465Tests.test_exact_handoff)
+完整交接应通过。 ... ok
+test_restarted_store_marks_unfinished_jobs (test_a_handoff_241880465.Handoff241880465Tests.test_restarted_store_marks_unfinished_jobs)
+用持久化状态验证重启恢复，未完成任务失败且成功任务可查询。 ... ok
+test_accept_exact_object_graphs_and_findings (test_a_integration.AIntegrationTests.test_accept_exact_object_graphs_and_findings) ... ok
+test_changed_artifact_is_rejected (test_a_integration.AIntegrationTests.test_changed_artifact_is_rejected) ... ok
+test_same_findings_do_not_hide_wrong_actual_graph (test_a_integration.AIntegrationTests.test_same_findings_do_not_hide_wrong_actual_graph) ... ok
+test_same_findings_do_not_hide_wrong_declaration_graph (test_a_integration.AIntegrationTests.test_same_findings_do_not_hide_wrong_declaration_graph) ... ok
+test_stale_envelope_is_rejected (test_a_integration.AIntegrationTests.test_stale_envelope_is_rejected) ... ok
+test_stale_payload_commit_is_rejected (test_a_integration.AIntegrationTests.test_stale_payload_commit_is_rejected) ... ok
+test_wrong_artifact_kind_is_rejected (test_a_integration.AIntegrationTests.test_wrong_artifact_kind_is_rejected) ... ok
+test_wrong_schema_is_rejected (test_a_integration.AIntegrationTests.test_wrong_schema_is_rejected) ... ok
+test_body_reuse_and_stale_pipeline_rejection (test_a_student_241880465.Student241880465IntegrationTests.test_body_reuse_and_stale_pipeline_rejection)
+验证动态基线复用、新增依赖刷新和错误版本中止。 ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 1.159s
+
+OK

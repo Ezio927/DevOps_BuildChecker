@@ -1,0 +1,25 @@
+{
+  "up{job=\"a03-buildchecker\"}": {
+    "metric": {
+      "__name__": "up",
+      "instance": "buildchecker:8080",
+      "job": "a03-buildchecker"
+    },
+    "value": [
+      1795535630.181,
+      "0"
+    ]
+  },
+  "a03_jobs_total{status=\"FAILED\"}": {
+    "metric": {
+      "__name__": "a03_jobs_total",
+      "instance": "api:8080",
+      "job": "a03-api",
+      "status": "FAILED"
+    },
+    "value": [
+      1795535630.186,
+      "1"
+    ]
+  }
+}

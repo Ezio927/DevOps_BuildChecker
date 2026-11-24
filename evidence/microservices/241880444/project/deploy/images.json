@@ -1,0 +1,46 @@
+{
+  "api": {
+    "container_id": "8881f69caa1b95097cfa9bd55d5d1e84b6d8eef19d054744f93b63ef2cfb7cf1",
+    "image_id": "sha256:b56097de23a33509495ddd6014750b16247ccad67af27e68f89ed9847cd1af3b",
+    "image_ref": "course-e11e12:241880444",
+    "repo_digests": [
+      "course-e11e12@sha256:b56097de23a33509495ddd6014750b16247ccad67af27e68f89ed9847cd1af3b"
+    ],
+    "state": "running",
+    "health": "healthy",
+    "started": "2026-11-24T15:53:12.189961636Z"
+  },
+  "buildchecker": {
+    "container_id": "2dacb16193d168bff28e4698cdcb5c6b94c9653c4d2fe6f36f9825ae09664e71",
+    "image_id": "sha256:b56097de23a33509495ddd6014750b16247ccad67af27e68f89ed9847cd1af3b",
+    "image_ref": "course-e11e12:241880444",
+    "repo_digests": [
+      "course-e11e12@sha256:b56097de23a33509495ddd6014750b16247ccad67af27e68f89ed9847cd1af3b"
+    ],
+    "state": "running",
+    "health": "healthy",
+    "started": "2026-11-24T15:53:50.33285652Z"
+  },
+  "prometheus": {
+    "container_id": "49ddabaf5df4ad40880de03c9fe5e63ef6f2b8ea721ae93803af0ab55059740b",
+    "image_id": "sha256:38c3b05c3bc744ff1b0b7b4eb82196026442845e62a1e2073795565da506d7a2",
+    "image_ref": "m.daocloud.io/docker.io/prom/prometheus@sha256:38c3b05c3bc744ff1b0b7b4eb82196026442845e62a1e2073795565da506d7a2",
+    "repo_digests": [
+      "m.daocloud.io/docker.io/prom/prometheus@sha256:38c3b05c3bc744ff1b0b7b4eb82196026442845e62a1e2073795565da506d7a2"
+    ],
+    "state": "running",
+    "health": null,
+    "started": "2026-11-24T15:53:08.309973669Z"
+  },
+  "grafana": {
+    "container_id": "0ac7a48d0c3557e5ab275230dc80c9a52f928a5dbfd4501d34c57fb52d1f112a",
+    "image_id": "sha256:488984b716c0862639f91a698adbe2862677a5a07bad42da5f03f3030883b205",
+    "image_ref": "m.daocloud.io/docker.io/grafana/grafana@sha256:488984b716c0862639f91a698adbe2862677a5a07bad42da5f03f3030883b205",
+    "repo_digests": [
+      "m.daocloud.io/docker.io/grafana/grafana@sha256:488984b716c0862639f91a698adbe2862677a5a07bad42da5f03f3030883b205"
+    ],
+    "state": "running",
+    "health": null,
+    "started": "2026-11-24T15:53:08.304772954Z"
+  }
+}

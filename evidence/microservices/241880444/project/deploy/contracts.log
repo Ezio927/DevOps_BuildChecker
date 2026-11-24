@@ -1,0 +1,15 @@
+test_accept_current_report (test_contract.Contracts) ... ok
+test_api_rejects_repo_outside_data (test_contract.Contracts) ... ok
+test_artifact_uses_relative_uri_and_content_hash (test_contract.Contracts) ... ok
+test_changed_artifact_is_rejected (test_contract.Contracts) ... ok
+test_existing_evidence_not_overwritten (test_contract.Contracts) ... ok
+test_reject_failed_upstream (test_contract.Contracts) ... ok
+test_reject_old_commit (test_contract.Contracts) ... ok
+test_reject_schema (test_contract.Contracts) ... ok
+test_reject_wrong_artifact_kind (test_contract.Contracts) ... ok
+test_same_key_same_request_same_job (test_contract.Contracts) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.002s
+
+OK

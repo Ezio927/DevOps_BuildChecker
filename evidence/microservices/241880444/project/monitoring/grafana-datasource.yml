@@ -1,0 +1,10 @@
+apiVersion: 1
+datasources:
+  - name: A03 Prometheus
+    uid: a03-prometheus
+    type: prometheus
+    access: proxy
+    url: http://prometheus:9090
+    jsonData:
+      timeInterval: 4s
+    isDefault: true

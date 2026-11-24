@@ -1,0 +1,55 @@
+{
+  "status": "success",
+  "data": {
+    "activeTargets": [
+      {
+        "discoveredLabels": {
+          "__address__": "api:8080",
+          "__metrics_path__": "/metrics",
+          "__scheme__": "http",
+          "__scrape_interval__": "4s",
+          "__scrape_timeout__": "2s",
+          "job": "a03-api"
+        },
+        "labels": {
+          "instance": "api:8080",
+          "job": "a03-api"
+        },
+        "scrapePool": "a03-api",
+        "scrapeUrl": "http://api:8080/metrics",
+        "globalUrl": "http://api:8080/metrics",
+        "lastError": "",
+        "lastScrape": "2026-11-24T15:54:25.316252463Z",
+        "lastScrapeDuration": 0.001334629,
+        "health": "up",
+        "scrapeInterval": "4s",
+        "scrapeTimeout": "2s"
+      },
+      {
+        "discoveredLabels": {
+          "__address__": "buildchecker:8080",
+          "__metrics_path__": "/metrics",
+          "__scheme__": "http",
+          "__scrape_interval__": "4s",
+          "__scrape_timeout__": "2s",
+          "job": "a03-buildchecker"
+        },
+        "labels": {
+          "instance": "buildchecker:8080",
+          "job": "a03-buildchecker"
+        },
+        "scrapePool": "a03-buildchecker",
+        "scrapeUrl": "http://buildchecker:8080/metrics",
+        "globalUrl": "http://buildchecker:8080/metrics",
+        "lastError": "",
+        "lastScrape": "2026-11-24T15:54:25.135208501Z",
+        "lastScrapeDuration": 0.001432973,
+        "health": "up",
+        "scrapeInterval": "4s",
+        "scrapeTimeout": "2s"
+      }
+    ],
+    "droppedTargets": [],
+    "droppedTargetCounts": null
+  }
+}

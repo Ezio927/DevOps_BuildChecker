@@ -1,0 +1,13 @@
+{
+  "schema_version": "e11e12-1",
+  "job_id": "job-1f787e1647a141bb86469cf667115fe4",
+  "status": "FAILED",
+  "idempotency_key": "afb32b877a3f4725b3e235dedc2a54b2",
+  "request_hash": "7b5d3aaca44cd391f596cf0262af9f77f24843e5b585a696f55ba909350515b8",
+  "trace_id": "trace-37748deb808845d2a2a5986c03452cc7",
+  "error": {
+    "code": "DOWNSTREAM_UNAVAILABLE",
+    "message": "buildchecker/baseline-full: <urlopen error [Errno -3] Temporary failure in name resolution>"
+  },
+  "duration_ms": 1201
+}

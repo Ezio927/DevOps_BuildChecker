@@ -1,0 +1,5 @@
+{
+  "linux": "Linux 5.15.0-191-generic x86_64",
+  "docker": "29.1.3",
+  "compose": "2.40.3+ds1-0ubuntu1~22.04.1"
+}

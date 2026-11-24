@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "case": "timeout",
+  "status": "TIMED_OUT",
+  "job_id": "job-1fd7bbf85a994f4b9816256afaba2dfe",
+  "trace_id": "trace-006327eb36ab49f481404d409cf041db",
+  "attempts": 3,
+  "duration_ms": 7007
+}

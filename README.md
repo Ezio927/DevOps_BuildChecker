@@ -20,7 +20,9 @@ A03 的 A 组独立课程仓库，负责 BuildChecker 全量依赖检测与 EChe
 241880444 已于 2026-11-11 在 A03 云主机个人目录完成 E5—E7、E8—E10 的运行、个人测试和报告。
 详见 [E5—E7 报告](docs/students/241880444/e5-e7/个人报告.md) 与
 [E8—E10 报告](docs/students/241880444/e8-e10/个人报告.md)。E11-A 的个人云端集成与扩展也已完成，
-见 [E11-A 报告](docs/students/241880444/e11-a/个人报告.md)。本次未执行 E11-B/E12 或跨组联调。
+见 [E11-A 报告](docs/students/241880444/e11-a/个人报告.md)。
+
+微服务实操在 A03 配对项目上通过 E12 五阶段。实验记录包含实际停服与恢复、Grafana 对照、补丁拒绝和源码状态核验。[验收记录](evidence/microservices/241880444/README.md) · [复跑命令](labs/microservices/README.md)
 
 - E8—E10 入口：`run_lab.py`、`labs/e8e10/`。
 - CI：`.github/workflows/e8e10.yml`，检查名 `e8e10-quality-gate`。

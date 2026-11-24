@@ -1,0 +1,9 @@
+{
+  "attempts": 3,
+  "duration_ms": 7007,
+  "error_code": "DOWNSTREAM_TIMEOUT",
+  "job_id": "job-1fd7bbf85a994f4b9816256afaba2dfe",
+  "sample": "slow",
+  "status": "TIMED_OUT",
+  "trace_id": "trace-006327eb36ab49f481404d409cf041db"
+}

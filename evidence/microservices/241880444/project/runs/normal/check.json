@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "job_id": "job-a83069ecf03941d7a9b2a7ed5ebb8577",
+  "trace_id": "trace-33b864dc76d94bd7a6d3090d6f018fb3",
+  "missing_before": [
+    [
+      "helper.o",
+      "config.h"
+    ],
+    [
+      "helper.o",
+      "extra.h"
+    ],
+    [
+      "main.o",
+      "config.h"
+    ]
+  ],
+  "findings_after": [
+    {
+      "type": "REDUNDANT",
+      "target": "main.o",
+      "dependency": "unused.h",
+      "evidence": [
+        {
+          "source": "make_database",
+          "artifact": "make-db.txt",
+          "line": 1050,
+          "declaration": "main.o: main.c unused.h config.h"
+        }
+      ],
+      "scope": "Not observed in this recipe job under this build configuration"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "status": "success",
+  "data": {
+    "activeTargets": [
+      {
+        "discoveredLabels": {
+          "__address__": "api:8080",
+          "__metrics_path__": "/metrics",
+          "__scheme__": "http",
+          "__scrape_interval__": "4s",
+          "__scrape_timeout__": "2s",
+          "job": "a03-api"
+        },
+        "labels": {
+          "instance": "api:8080",
+          "job": "a03-api"
+        },
+        "scrapePool": "a03-api",
+        "scrapeUrl": "http://api:8080/metrics",
+        "globalUrl": "http://api:8080/metrics",
+        "lastError": "",
+        "lastScrape": "2026-11-24T15:53:41.316252463Z",
+        "lastScrapeDuration": 0.001930607,
+        "health": "up",
+        "scrapeInterval": "4s",
+        "scrapeTimeout": "2s"
+      },
+      {
+        "discoveredLabels": {
+          "__address__": "buildchecker:8080",
+          "__metrics_path__": "/metrics",
+          "__scheme__": "http",
+          "__scrape_interval__": "4s",
+          "__scrape_timeout__": "2s",
+          "job": "a03-buildchecker"
+        },
+        "labels": {
+          "instance": "buildchecker:8080",
+          "job": "a03-buildchecker"
+        },
+        "scrapePool": "a03-buildchecker",
+        "scrapeUrl": "http://buildchecker:8080/metrics",
+        "globalUrl": "http://buildchecker:8080/metrics",
+        "lastError": "Get \"http://buildchecker:8080/metrics\": dial tcp: lookup buildchecker on 127.0.0.11:53: server misbehaving",
+        "lastScrape": "2026-11-24T15:53:45.135208501Z",
+        "lastScrapeDuration": 0.005385246,
+        "health": "down",
+        "scrapeInterval": "4s",
+        "scrapeTimeout": "2s"
+      }
+    ],
+    "droppedTargets": [],
+    "droppedTargetCounts": null
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "status": "success",
+  "data": {
+    "activeTargets": [
+      {
+        "discoveredLabels": {
+          "__address__": "api:8080",
+          "__metrics_path__": "/metrics",
+          "__scheme__": "http",
+          "__scrape_interval__": "4s",
+          "__scrape_timeout__": "2s",
+          "job": "lab-api"
+        },
+        "labels": {
+          "instance": "api:8080",
+          "job": "lab-api"
+        },
+        "scrapePool": "lab-api",
+        "scrapeUrl": "http://api:8080/metrics",
+        "globalUrl": "http://api:8080/metrics",
+        "lastError": "",
+        "lastScrape": "2026-11-24T15:54:27.11878968Z",
+        "lastScrapeDuration": 0.004478346,
+        "health": "up",
+        "scrapeInterval": "4s",
+        "scrapeTimeout": "2s"
+      },
+      {
+        "discoveredLabels": {
+          "__address__": "worker:8080",
+          "__metrics_path__": "/metrics",
+          "__scheme__": "http",
+          "__scrape_interval__": "4s",
+          "__scrape_timeout__": "2s",
+          "job": "lab-worker"
+        },
+        "labels": {
+          "instance": "worker:8080",
+          "job": "lab-worker"
+        },
+        "scrapePool": "lab-worker",
+        "scrapeUrl": "http://worker:8080/metrics",
+        "globalUrl": "http://worker:8080/metrics",
+        "lastError": "",
+        "lastScrape": "2026-11-24T15:54:27.678455935Z",
+        "lastScrapeDuration": 0.001512725,
+        "health": "up",
+        "scrapeInterval": "4s",
+        "scrapeTimeout": "2s"
+      }
+    ],
+    "droppedTargets": [],
+    "droppedTargetCounts": null
+  }
+}

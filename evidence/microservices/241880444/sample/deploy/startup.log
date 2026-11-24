@@ -1,0 +1,6 @@
+prometheus time=2026-11-24T15:53:09.191Z level=INFO source=main.go:769 msg="Starting Prometheus Server" mode=server version="(version=3.5.1, branch=HEAD, revision=7d42ddfaad88c3a1fd52236e5a7707315c58e84d)"
+prometheus time=2026-11-24T15:53:09.249Z level=INFO source=main.go:1497 msg="Loading configuration file" filename=/etc/prometheus/prometheus.yml
+prometheus time=2026-11-24T15:53:09.249Z level=INFO source=main.go:1537 msg="Completed loading of configuration file" db_storage=1.26µs remote_storage=1.823µs web_handler=659ns query_engine=1.186µs scrape=169.025µs scrape_sd=32.23µs notify=1.353µs notify_sd=31.362µs rules=1.954µs tracing=5.227µs filename=/etc/prometheus/prometheus.yml totalDuration=508.638µs
+prometheus time=2026-11-24T15:53:09.249Z level=INFO source=main.go:1273 msg="Server is ready to receive web requests."
+grafana logger=provisioning.dashboard t=2026-11-24T15:53:30.908908319Z level=info msg="finished to provision dashboards"
+grafana logger=http.server t=2026-11-24T15:53:30.937114136Z level=info msg="HTTP Server Listen" address=[::]:3000 protocol=http subUrl= socket=

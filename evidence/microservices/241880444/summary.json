@@ -1,0 +1,103 @@
+{
+  "student": "241880444",
+  "group": "A03",
+  "source_sha": "70fcf8d91b4db5d0ecdc2e660e03c81ec118105e",
+  "base": "e31c977a064cd593a34488e8b9ee0d1a57061fed",
+  "target": "93ef2b34b5645ac3578a7b3d34792d80441b4ac6",
+  "cases": {
+    "sample": {
+      "normal": {
+        "job_id": "job-7a2f15ee197e474eb79ade5a175dca4f",
+        "trace_id": "trace-afb16586f4354fc1869486d2a6281a82",
+        "status": "SUCCEEDED",
+        "duration_ms": 17,
+        "error_code": null,
+        "attempts": 1
+      },
+      "down": {
+        "job_id": "job-72f3283cbf76405ba4ccbf991c43ec21",
+        "trace_id": "trace-3a0c198149b74c2d9fb73a02092e51b5",
+        "status": "FAILED",
+        "duration_ms": 1004,
+        "error_code": "DOWNSTREAM_UNAVAILABLE",
+        "attempts": 3
+      },
+      "recovered": {
+        "job_id": "job-77635fd04bf343cb861bc8e2e7244eae",
+        "trace_id": "trace-7ecdf3b4e51c419caeed5064869df98b",
+        "status": "SUCCEEDED",
+        "duration_ms": 4,
+        "error_code": null,
+        "attempts": 1
+      },
+      "metrics": {
+        "worker_up": [
+          1,
+          0,
+          1
+        ],
+        "end_counters": {
+          "FAILED": 1,
+          "SUCCEEDED": 2,
+          "TIMED_OUT": 0
+        },
+        "start": 1795535596,
+        "end": 1795535656
+      }
+    },
+    "project": {
+      "normal": {
+        "job_id": "job-a83069ecf03941d7a9b2a7ed5ebb8577",
+        "trace_id": "trace-33b864dc76d94bd7a6d3090d6f018fb3",
+        "status": "SUCCEEDED",
+        "duration_ms": 6982,
+        "error_code": null,
+        "attempts": 1,
+        "verified_artifacts": 156,
+        "missing_before": 3,
+        "missing_after": 0,
+        "redundant_after": 1,
+        "candidate_image": "sha256:e911d3b2606c40f7545a4bfc9d645b4e36dbf869cdef184034198af1f1c5d46b",
+        "output": "1"
+      },
+      "down": {
+        "job_id": "job-1f787e1647a141bb86469cf667115fe4",
+        "trace_id": "trace-37748deb808845d2a2a5986c03452cc7",
+        "status": "FAILED",
+        "duration_ms": 1201,
+        "error_code": "DOWNSTREAM_UNAVAILABLE",
+        "attempts": 1,
+        "verified_artifacts": 46
+      },
+      "recovered": {
+        "job_id": "job-bb3b526c5016483aba35850892d877c1",
+        "trace_id": "trace-35e7b7d134654879925efcad0665b978",
+        "status": "SUCCEEDED",
+        "duration_ms": 3152,
+        "error_code": null,
+        "attempts": 1,
+        "verified_artifacts": 156,
+        "missing_before": 3,
+        "missing_after": 0,
+        "redundant_after": 1,
+        "candidate_image": "sha256:abe15fdd708a815873bb3cf8142f2d6672c2c4b1f63b0d8e758f8b0a57f9c5b5",
+        "output": "1"
+      },
+      "metrics": {
+        "worker_up": [
+          1,
+          0,
+          1
+        ],
+        "end_counters": {
+          "FAILED": 1,
+          "SUCCEEDED": 2,
+          "TIMED_OUT": 0
+        },
+        "start": 1795535602,
+        "end": 1795535647
+      }
+    }
+  },
+  "rollback_passed": true
+}

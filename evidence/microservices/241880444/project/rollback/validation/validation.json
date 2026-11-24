@@ -1,0 +1,13 @@
+{
+  "accepted": false,
+  "checks": {
+    "patch_applies": true,
+    "build": true,
+    "test": true,
+    "header_change": true,
+    "no_missing": false
+  },
+  "error": null,
+  "source_unchanged": true,
+  "rollback": true
+}

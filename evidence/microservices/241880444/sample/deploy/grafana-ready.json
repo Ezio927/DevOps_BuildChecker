@@ -1,0 +1,28 @@
+{
+  "dashboard": "microservice-lab",
+  "measurements": {
+    "up{job=\"lab-worker\"}": {
+      "metric": {
+        "__name__": "up",
+        "instance": "worker:8080",
+        "job": "lab-worker"
+      },
+      "value": [
+        1795535611.304,
+        "1"
+      ]
+    },
+    "lab_jobs_total{status=\"FAILED\"}": {
+      "metric": {
+        "__name__": "lab_jobs_total",
+        "instance": "api:8080",
+        "job": "lab-api",
+        "status": "FAILED"
+      },
+      "value": [
+        1795535611.316,
+        "0"
+      ]
+    }
+  }
+}
