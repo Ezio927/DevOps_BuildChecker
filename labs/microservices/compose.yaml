@@ -24,7 +24,9 @@ services:
     dns_opt: ["timeout:1", "attempts:1"]
     group_add: ["${DOCKER_GID:?set DOCKER_GID}"]
     volumes:
-      - ../../labs:/course/labs:ro
+      - ../e11e12:/course/labs/e11e12:ro
+      - ../e8e10:/course/labs/e8e10:ro
+      - ./rollback.py:/course/labs/microservices/rollback.py:ro
       - ../../data:/course/data:ro
       - ${MICRO_WORK:-../../work/microservice-project}:/course/work
       - /var/run/docker.sock:/var/run/docker.sock
@@ -37,7 +39,8 @@ services:
     command: [python3, -u, labs/e11e12/checker_service.py]
     cap_add: [SYS_PTRACE]
     volumes:
-      - ../../labs:/course/labs:ro
+      - ../e11e12:/course/labs/e11e12:ro
+      - ../e8e10:/course/labs/e8e10:ro
       - ../../services/buildchecker:/app:ro
       - ${MICRO_WORK:-../../work/microservice-project}:/course/work
   prometheus:
