@@ -13,6 +13,11 @@ def fetch(url, headers):
         return json.load(response)
 
 
+def grafana_headers():
+    basic = base64.b64encode(("admin:" + os.environ["GRAFANA_ADMIN_PASSWORD"]).encode()).decode()
+    return {"Authorization": "Basic " + basic}
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--grafana", required=True, help="Loopback Grafana URL")
@@ -21,8 +26,7 @@ def main():
     p.add_argument("--end", type=int, required=True)
     p.add_argument("--out", type=Path, required=True)
     args = p.parse_args()
-    basic = base64.b64encode(("admin:" + os.environ["GRAFANA_ADMIN_PASSWORD"]).encode()).decode()
-    headers = {"Authorization": "Basic " + basic}
+    headers = grafana_headers()
     root = args.grafana.rstrip("/")
     dashboard = fetch(root + "/api/dashboards/uid/" + quote(args.uid), headers)["dashboard"]
     args.out.mkdir(parents=True, exist_ok=False)

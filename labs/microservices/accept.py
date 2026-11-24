@@ -10,6 +10,7 @@ import time
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 import uuid
+from observe import fetch, grafana_headers
 
 LAB = Path(__file__).resolve().parent
 
@@ -49,11 +50,14 @@ def main():
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--api-port", type=int, default=18080)
     parser.add_argument("--prom-port", type=int, default=19090)
+    parser.add_argument("--grafana-port", type=int, default=13000)
     args = parser.parse_args()
     sample, out = args.sample_dir.resolve(), args.out.resolve()
     out.mkdir(parents=True, exist_ok=False)
     jobs = f"http://127.0.0.1:{args.api_port}/v1/jobs"
     prom = f"http://127.0.0.1:{args.prom_port}/api/v1"
+    grafana = f"http://127.0.0.1:{args.grafana_port}/api/datasources/proxy/uid/a03-prometheus/api/v1/query?"
+    headers = grafana_headers()
     request = LAB / "request.json"
     timeline = {}
 
@@ -90,8 +94,10 @@ def main():
         return command(["docker", "compose", *args], LAB)
 
     mark("start")
+    wait_for(lambda: metric('up{job="a03-api"}'), 1, 60)
+    succeeded_before = metric('a03_jobs_total{status="SUCCEEDED"}')
     successful("normal")
-    wait_for(lambda: metric('a03_jobs_total{status="SUCCEEDED"}') >= 1, True, 30)
+    wait_for(lambda: metric('a03_jobs_total{status="SUCCEEDED"}'), succeeded_before + 1, 30)
     failed_before = metric('a03_jobs_total{status="FAILED"}')
     mark("stop_requested")
     compose("stop", "buildchecker")
@@ -119,6 +125,13 @@ def main():
             raise ValueError(f"Unexpected failure at {first['job_id']}: {state}")
         mark("down_finished")
         wait_for(lambda: metric('a03_jobs_total{status="FAILED"}'), failed_before + 1, 30)
+        observed = {}
+        for query, expected in [('up{job="a03-buildchecker"}', 0), ('a03_jobs_total{status="FAILED"}', failed_before + 1)]:
+            series = fetch(grafana + urlencode({"query": query}), headers)["data"]["result"]
+            if len(series) != 1 or float(series[0]["value"][1]) != expected:
+                raise ValueError(f"Grafana did not observe {query}={expected}")
+            observed[query] = series[0]
+        save(dest / "grafana-at-failure.json", observed)
         print("down", first["job_id"], state["error"]["code"], flush=True)
     finally:
         mark("restart_requested")
